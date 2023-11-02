@@ -1,0 +1,17 @@
+{
+    "name": "nitlix-signals",
+    "version": "1.0.0",
+    "description": "🎉 A new rapid way to convert user data headers into client-readable objects.",
+    "main": "./dist/exports.js",
+    "keywords": [
+        "nextjs",
+        "js",
+        "ts",
+        "client"
+    ],
+    "author": "NITLIX HOLDINGS LTD.",
+    "license": "MIT",
+    "devDependencies": {
+        "next": "^14.0.1"
+    }
+}
