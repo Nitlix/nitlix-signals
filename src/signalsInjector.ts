@@ -2,7 +2,11 @@ import { NextRequest, NextResponse } from "next/server"
 
 export default function(
     request: NextRequest,
-    response: NextResponse = new NextResponse
+    response: NextResponse = NextResponse.next({
+        request: {
+            headers: request.headers
+        }
+    })
 ): {
     request: NextRequest,
     response: NextResponse
