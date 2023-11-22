@@ -1,6 +1,6 @@
 {
     "name": "nitlix-signals",
-    "version": "1.0.3",
+    "version": "1.0.5",
     "description": "🎉 A new rapid way to convert user data headers into client-readable objects.",
     "main": "./dist/exports.js",
     "keywords": [
