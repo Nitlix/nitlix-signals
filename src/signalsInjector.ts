@@ -23,6 +23,7 @@ export default function(
     })
 
     assign("signal-url", request.url)
+    assign("signal-ip", request.ip)
 
 
     return {
