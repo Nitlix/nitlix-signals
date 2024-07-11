@@ -1,22 +1,38 @@
-import { cookies } from 'next/headers'
+import { cookies, headers } from "next/headers";
+import { SignalFull, SignalServerFetchMethod } from "./types";
 
-interface SignalCookie {
-    name: string,
-    value: string,
-}
+export default function (
+    fetchMethod: SignalServerFetchMethod = "headers"
+): SignalFull[] {
+    const final: SignalFull[] = [];
 
-/**
- * Only for use on the server side.
- * @returns {Array<{name: string, value: string}>} An array of objects with the name and value of each signal.
- */
-export default function(): SignalCookie[] {
-    const final: SignalCookie[] = []
-    cookies().getAll().map(cookie=>{
-        if (cookie.name.startsWith("signal-")) final.push({
-            name: cookie.name.slice(7),
-            value: cookie.value
-        })
-    })
+    switch (fetchMethod) {
+        case "cookies": {
+            const cookieData = cookies();
+            for (const [key, value] of cookieData) {
+                if (key.startsWith("signal-")) {
+                    final.push({
+                        name: key.slice(7),
+                        value: value.value,
+                    });
+                }
+            }
+            break;
+        }
+        case "headers": {
+            const headerData = headers();
+            for (const [key, value] of headerData) {
+                final.push({
+                    name: key.slice(7),
+                    value,
+                });
+            }
+            break;
+        }
+        default: {
+            throw new Error(`Unknown fetch method: ${fetchMethod}`);
+        }
+    }
 
     return final;
 }
