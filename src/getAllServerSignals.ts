@@ -1,14 +1,14 @@
 import { cookies, headers } from "next/headers";
 import { SignalFull, SignalServerFetchMethod } from "./types";
 
-export default function (
+export default async function (
     fetchMethod: SignalServerFetchMethod = "headers"
-): SignalFull[] {
+): Promise<SignalFull[]> {
     const final: SignalFull[] = [];
 
     switch (fetchMethod) {
         case "cookies": {
-            const cookieData = cookies();
+            const cookieData = await cookies();
             for (const [key, value] of cookieData) {
                 if (key.startsWith("signal-")) {
                     final.push({
@@ -20,7 +20,7 @@ export default function (
             break;
         }
         case "headers": {
-            const headerData = headers();
+            const headerData = await headers();
             for (const [key, value] of headerData) {
                 final.push({
                     name: key.slice(7),

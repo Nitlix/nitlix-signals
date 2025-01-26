@@ -4,7 +4,9 @@ import getClientSignal from "./getClientSignal";
 
 export default function (): NextRequest {
     const request = new NextRequest(window.location.href, {
-        ip: getClientSignal("ip") || "127.0.0.1",
+        headers: {
+            "x-real-ip": getClientSignal("ip") || "127.0.0.1",
+        },
     });
 
     getAllClientSignals().forEach(({ name, value }) => {
